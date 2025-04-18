@@ -1,91 +1,59 @@
-# 🧠 Desafio Técnico – Correção de Erros em Projeto ReactJS
+# 🔧 Melhorias e Correções no Projeto
 
-Bem-vindo ao desafio!
-
-Este repositório contém uma aplicação ReactJS propositalmente com erros de diversos tipos. O objetivo é simular um cenário realista de manutenção de código legado ou pressa na entrega, exigindo atenção, raciocínio lógico e domínio da stack.
-
-### Abaixo está a imagem do projeto
-
-<img src=".github/image.png" />
+Este repositório contém ajustes e melhorias feitas com foco em refatoração de código, correção de erros e organização geral da aplicação. Abaixo está uma descrição detalhada de tudo que foi implementado.
 
 ---
 
-## 🧪 Objetivo
+## 🛠️ Correções realizadas
 
-Seu principal desafio é identificar e corrigir os erros existentes na aplicação, que estão distribuídos em diferentes níveis de gravidade — desde falhas críticas que impedem a execução até bugs sutis de layout e lógica.
-
-Além da correção de erros, você terá liberdade para refatorar partes do código que considerar importantes, visando melhorar legibilidade, performance ou organização.
-
-Você também poderá propor e desenvolver novas funcionalidades que julgar relevantes para a aplicação. Soluções criativas e demonstrações de proatividade serão valorizadas na avaliação final.
-
-## Esse é um desafio técnico, mas também uma oportunidade de mostrar sua capacidade de raciocínio, iniciativa e atenção aos detalhes em um cenário realista de manutenção e evolução de software.
-
-### ✅ Tipos de erros que você encontrará:
-
-1. **Erros de build/start**
-
-   - O projeto pode falhar ao ser iniciado com `yarn dev` ou `npm run dev`.
-
-2. **Erros em tempo de execução**
-
-   - A aplicação até roda, mas falha em ações como cliques, envio de formulário, atualizações de estado ou requisições.
-
-3. **Erros visuais e de responsividade**
-
-   - Elementos desalinhados, sobreposição em telas menores, falta de espaçamento, etc.
-
-4. **Pegadinhas sutis**
-   - Hooks mal utilizados.
-   - Props trocadas.
-   - Estados que não refletem corretamente a UI.
-   - Componentes que não atualizam como deveriam.
+- Corrigido erro na função `handleDeleteTask`, que não estava filtrando corretamente o ID da tarefa.
+- Ajustado comportamento da função `handleTaskCompleted` para marcar e desmarcar tarefas concluídas corretamente.
+- Corrigido bug no contador de tarefas concluídas (incrementava indefinidamente).
+- Corrigida tipagem incorreta e redundância de tipos em várias partes do código (`TaskType`, `TaskProps`, etc).
+- Corrigido erro de lógica ao tentar deletar uma tarefa que não existia mais.
 
 ---
 
-## 🔧 Como rodar o projeto
+## 🧼 Refatorações aplicadas
 
-```bash
-# 1. Instale as dependências
-yarn install
-
-# 2. Rode o projeto em modo desenvolvimento
-yarn dev
-```
-
-> ⚠️ Se você tiver problemas com `yarn`, utilize `npm` como alternativa.
+- Refatoração completa da lógica de manipulação das tarefas.
+- Tipagem com `TypeScript` aplicada corretamente em props e estados.
+- Padronização do uso do `setTasks` para uso de função de atualização (`prevState => ...`).
+- Funções separadas e mais legíveis (`handleCreateTask`, `handleDeleteTask`, `handleTaskCompleted`).
+- Código mais semântico e com melhor legibilidade.
 
 ---
 
-## ⏱ Tempo estimado
+## 🎨 Organização e estilo
 
-Recomenda-se um tempo de até **3 horas** para resolução completa.
-
----
-
-## 📝 O que será avaliado
-
-- Capacidade de identificar e corrigir bugs de forma eficiente.
-- Clareza e organização das correções no código.
-- Atenção a detalhes de layout e comportamento da UI.
-- Uso correto de hooks e props.
-- Código limpo e boas práticas.
+- Padronização da estrutura de pastas: componentes como `Header` e `Task` estão organizados corretamente.
+- Limpeza de código não utilizado ou duplicado.
+- Organização de estilos com `app.module.css` e `global.css` mantida e aplicada corretamente.
 
 ---
 
-## 📤 Entrega
+## 🚀 Performance e boas práticas
 
-Ao finalizar o desafio, você pode:
-
-- Subir o projeto corrigido em um repositório público do GitHub e enviar o link.
-- Ou compactar a pasta do projeto e enviar o `.zip`.
+- Evitado uso excessivo de `.filter()` e `.find()` dentro de loops.
+- Uso correto de `key` em componentes listados.
+- Estados atualizados de forma segura com função de callback.
+- Redução de renderizações desnecessárias com uso eficiente do React state.
 
 ---
 
-## 💡 Dicas finais
+## ✅ Novas funcionalidades implementadas
 
-- Use o console do navegador para identificar erros silenciosos.
-- Valide o comportamento esperado da aplicação nas interações.
-- Releia o código com atenção — algumas falhas são sutis.
-- Preze por clareza: escreva como se outra pessoa fosse dar manutenção depois de você. 😉
+- Adicionado feedback visual ao criar e excluir tarefas.
+- Tarefas agora impedem envio se estiverem vazias.
+- Contador de tarefas atualiza corretamente com base nas ações.
 
-Boa sorte e divirta-se! 🚀
+---
+
+## 📁 Outros
+
+- Remoção de `package-lock.json` para evitar conflito com `yarn.lock`.
+- Status de Git limpo e com histórico rastreável via `git add .`, `git commit -m "..."` e `git push`.
+
+---
+
+🧠 Projeto mantido atualizado com foco em clareza, manutenção futura e experiência de desenvolvimento.
