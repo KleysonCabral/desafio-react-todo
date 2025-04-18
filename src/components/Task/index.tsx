@@ -1,13 +1,14 @@
+// src/components/Task/Task.tsx
 import { Trash } from "phosphor-react";
 import styles from "./task.module.css";
 
 export function Task({ checked, title, id, onComplete, onDelete }: any) {
   const handleCompleteTask = () => {
-    onComplete(id);
+    onComplete(id);  // Marca a tarefa como concluída
   };
 
   const handleDeleteTask = () => {
-    onDelete(id);
+    onDelete(id);  // Deleta a tarefa
   };
 
   return (
@@ -15,12 +16,12 @@ export function Task({ checked, title, id, onComplete, onDelete }: any) {
       <div>
         <input
           type="checkbox"
-          id="task"
+          id={`task-${id}`} 
           name="task"
           checked={checked}
-          onClick={handleCompleteTask}
+          onChange={handleCompleteTask}  // Ao mudar o checkbox, chama handleCompleteTask
         />
-        <label htmlFor="task">{title}</label>
+        <label htmlFor={`task-${id}`}>{title}</label>
       </div>
       <button type="button" onClick={handleDeleteTask}>
         <Trash size={24} />

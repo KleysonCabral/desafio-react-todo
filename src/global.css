@@ -40,5 +40,6 @@ body, input, textarea, button {
 }
 
 html body button {
-  all: unset !important;
+  all: unset;
+  cursor: pointer;
 }

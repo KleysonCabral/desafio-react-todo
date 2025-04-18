@@ -1,73 +1,68 @@
 import { PlusCircle, ClipboardText } from "phosphor-react";
-import { useCallback, useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./app.module.css";
 import { Header } from "./components/Header";
 import { Task } from "./components/Task";
 
-const data = [
+type TaskType = {
+  id: string;
+  title: string;
+  isCompleted: boolean;
+};
+
+const initialData: TaskType[] = [
   {
     id: uuidv4(),
     title: "Tarefa 1",
-    isDeleted: false,
     isCompleted: false,
   },
   {
     id: uuidv4(),
     title: "Tarefa 2",
-    isDeleted: false,
     isCompleted: false,
   },
 ];
 
 export function App() {
-  const [tasks, setTasks] = useState<any>();
+  const [tasks, setTasks] = useState<TaskType[]>([]);
   const [newTask, setNewTask] = useState("");
-  const [totalCompleted, setTotalCompleted] = useState(0)
 
   useEffect(() => {
-   setTasks(data) 
-  })
+    setTasks(initialData);
+  }, []);
 
-  const handleNewTaskChange = (event: any) => {
-    event.preventDefault();
+  const totalCompleted = tasks.filter(task => task.isCompleted).length;
+
+  const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask(event.target.value);
   };
 
-  const handleCreateTask = (event: any) => {
+  const handleCreateTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setTasks([
-      ...tasks,
-      {
+    if (newTask.trim() !== "") {
+      const newTaskObj: TaskType = {
         id: uuidv4(),
         title: newTask,
-        isDeleted: false,
         isCompleted: false,
-      },
-    ]);
-    setNewTask("");
+      };
+
+      setTasks(prev => [...prev, newTaskObj]);
+      setNewTask("");
+    }
   };
 
-  const completeTask = (id: string) => {
-    const tasksWithoutCompleteOne = tasks.map((task) =>
-      task.id === id ? { ...task, isCompleted: true } : task
+  const toggleCompleteTask = (id: string) => {
+    const updated = tasks.map(task =>
+      task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
     );
-
-    setTasks(tasksWithoutCompleteOne);
+    setTasks(updated);
   };
 
   const deleteTask = (id: string) => {
-    const taskssWithoutDeleteOne = tasks.filter((task) => task.id !== id);
-
-    setTasks(taskssWithoutDeleteOne);
+    setTasks(prev => prev.filter(task => task.id !== id));
   };
-
-  useEffect(() => {
-    tasks.map((task) => task.isCompleted === true && setTotalCompleted(totalCompleted + 1));
-  }, [totalCompleted])
-
-  
 
   return (
     <>
@@ -86,6 +81,7 @@ export function App() {
             <PlusCircle size={20} />
           </button>
         </form>
+
         <div className={styles.content}>
           <div className={styles.contentHeader}>
             <div>
@@ -95,28 +91,28 @@ export function App() {
 
             <div>
               <strong>Concluídas</strong>
-              <span>
-                {totalCompleted} de {tasks.length}
-              </span>
+              <span>{totalCompleted} de {tasks.length}</span>
             </div>
           </div>
+
           <div className={styles.contentBox}>
             {tasks.length > 0 ? (
               tasks.map((task) => (
                 <Task
+                  key={task.id}
                   id={task.id}
                   checked={task.isCompleted}
                   title={task.title}
-                  onComplete={completeTask}
+                  onComplete={toggleCompleteTask}
                   onDelete={deleteTask}
                 />
               ))
             ) : (
-              <>
+              <div className={styles.empty}>
                 <ClipboardText size={56} />
                 <strong>Você ainda não tem tarefas cadastradas</strong>
                 <small>Crie tarefas e organize seus itens a fazer</small>
-              </>
+              </div>
             )}
           </div>
         </div>
